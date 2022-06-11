@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "259215804138",
+    "project_id": "toppizza-b766b",
+    "storage_bucket": "toppizza-b766b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259215804138:android:56b2177b8bbeca9f927993",
+        "android_client_info": {
+          "package_name": "com.toppizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259215804138-2mi5b9i97ml6a970jjoo205irdpfshl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbEN2UrspU-J4DRWpP7Fmc-2JxUw-IKaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259215804138-2mi5b9i97ml6a970jjoo205irdpfshl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
