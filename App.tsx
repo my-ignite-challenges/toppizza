@@ -6,11 +6,9 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
 
-import { SignIn } from "./src/screens/SignIn";
-import theme from "./src/theme";
 import { AuthProvider } from "./src/hooks/auth";
-import { Product } from "./src/screens/Product";
-import { Home } from "./src/screens/Home";
+import theme from "./src/theme";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,8 +22,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <AuthProvider>
-        {/* <SignIn /> */}
-        <Home />
+        <Routes />
       </AuthProvider>
     </ThemeProvider>
   );

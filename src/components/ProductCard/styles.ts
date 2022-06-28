@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import styled, { css } from "styled-components/native";
 
@@ -5,7 +6,7 @@ export const Container = styled.View`
   width: 100%;
 `;
 
-export const Content = styled(RectButton)`
+export const Content = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
 `;

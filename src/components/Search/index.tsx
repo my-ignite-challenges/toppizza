@@ -9,19 +9,19 @@ type Props = TextInputProps & {
   onClear: () => void;
 };
 
-export function Search({ onSearch, onClear }: Props) {
+export function Search({ onSearch, onClear, ...rest }: Props) {
   const { COLORS } = useTheme();
 
   return (
     <Container>
       <InputArea>
-        <Input placeholder="Pesquisar..." />
+        <Input placeholder="Pesquisar..." {...rest} />
         <ClearButton onPress={onClear}>
           <Feather name="x" size={16} />
         </ClearButton>
       </InputArea>
 
-      <Button onPress={onSearch}>
+      <Button onPress={onSearch} activeOpacity={0.9}>
         <Feather name="search" size={16} color={COLORS.TITLE} />
       </Button>
     </Container>

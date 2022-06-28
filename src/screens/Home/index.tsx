@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Alert, TouchableOpacity } from "react-native";
@@ -19,12 +19,22 @@ import {
   MenuItemsNumber,
 } from "./styles";
 import { ProductCard, ProductProps } from "../../components/ProductCard";
+import { FlatList } from "react-native-gesture-handler";
+import { useAuth } from "../../hooks/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export function Home() {
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [searchText, setSearchText] = useState("");
+
+  const { signOut } = useAuth();
+
   const { COLORS } = useTheme();
 
-  function fetchProducts(value: string) {
-    const formattedValue = value.toLowerCase().trim();
+  const navigation = useNavigation();
+
+  function fetchProducts(searchText: string) {
+    const formattedValue = searchText.toLowerCase().trim();
 
     firestore()
       .collection("pizzas")
@@ -40,11 +50,24 @@ export function Home() {
           };
         }) as ProductProps[];
 
-        console.log(data);
+        setProducts(data);
       })
       .catch(() =>
         Alert.alert("Consulta", "Não foi possível realizar a consulta")
       );
+  }
+
+  function handleSearch() {
+    fetchProducts(searchText);
+  }
+
+  function handleSearchTextClear() {
+    setSearchText("");
+    fetchProducts("");
+  }
+
+  function handleGoToProductDetails(id: string) {
+    navigation.navigate("Product", { id });
   }
 
   useEffect(() => {
@@ -59,23 +82,37 @@ export function Home() {
           <Greeting>Olá, Admin</Greeting>
         </GreetingWrapper>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
 
-      <Search onSearch={() => {}} onClear={() => {}} />
+      <Search
+        value={searchText}
+        onChangeText={setSearchText}
+        onSearch={handleSearch}
+        onClear={handleSearchTextClear}
+      />
 
       <MenuHeader>
         <Title>Cardápio</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
       </MenuHeader>
-      <ProductCard
-        data={{
-          id: "1",
-          name: "Pizza",
-          description: "Imagine os ingredientes que quiser aqui",
-          image_url: "https://github.com/georgewfsantos.png",
+
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ProductCard
+            data={item}
+            onPress={() => handleGoToProductDetails(item.id)}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingBottom: 125,
+          marginHorizontal: 24,
         }}
       />
     </Container>

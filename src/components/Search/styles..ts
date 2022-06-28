@@ -1,12 +1,8 @@
 import { ReactNode } from "react";
-import { TextInput } from "react-native";
+import { TextInput, TouchableOpacityProps } from "react-native";
 
-import { RectButton, RectButtonProps } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import styled, { css } from "styled-components/native";
-
-type ButtonProps = RectButtonProps & {
-  children: ReactNode;
-};
 
 export const Container = styled.View`
   width: 100%;
@@ -39,7 +35,7 @@ export const ClearButton = styled.TouchableOpacity`
   margin-right: 7px;
 `;
 
-export const Button = styled(RectButton)<ButtonProps>`
+export const Button = styled.TouchableOpacity`
   width: 52px;
   height: 52px;
   align-items: center;
