@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Alert, TouchableOpacity } from "react-native";
@@ -17,11 +17,12 @@ import {
   MenuHeader,
   Title,
   MenuItemsNumber,
+  NewProductButton,
 } from "./styles";
 import { ProductCard, ProductProps } from "../../components/ProductCard";
 import { FlatList } from "react-native-gesture-handler";
 import { useAuth } from "../../hooks/auth";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 export function Home() {
   const [products, setProducts] = useState<ProductProps[]>([]);
@@ -70,9 +71,15 @@ export function Home() {
     navigation.navigate("Product", { id });
   }
 
-  useEffect(() => {
-    fetchProducts("");
-  }, []);
+  function handleNewProductCreation() {
+    navigation.navigate("Product", {});
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchProducts("");
+    }, [])
+  );
 
   return (
     <Container>
@@ -96,7 +103,7 @@ export function Home() {
 
       <MenuHeader>
         <Title>Cardápio</Title>
-        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+        <MenuItemsNumber>{products.length} pizzas</MenuItemsNumber>
       </MenuHeader>
 
       <FlatList
@@ -114,6 +121,11 @@ export function Home() {
           paddingBottom: 125,
           marginHorizontal: 24,
         }}
+      />
+      <NewProductButton
+        title="Cadastrar Pizza"
+        type="secondary"
+        onPress={handleNewProductCreation}
       />
     </Container>
   );
