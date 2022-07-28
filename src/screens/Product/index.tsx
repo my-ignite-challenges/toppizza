@@ -125,8 +125,6 @@ export function Product() {
   }
 
   function handleDelete() {
-    console.log("clicked");
-
     firestore()
       .collection("pizzas")
       .doc(id)

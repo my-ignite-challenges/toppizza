@@ -28,7 +28,7 @@ export function Home() {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [searchText, setSearchText] = useState("");
 
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   const { COLORS } = useTheme();
 
@@ -68,7 +68,9 @@ export function Home() {
   }
 
   function handleGoToProductDetails(id: string) {
-    navigation.navigate("Product", { id });
+    const renderProductOrOrderScreenRoute = user?.isAdmin ? "Product" : "Order";
+
+    navigation.navigate(renderProductOrOrderScreenRoute, { id });
   }
 
   function handleNewProductCreation() {
@@ -122,11 +124,13 @@ export function Home() {
           marginHorizontal: 24,
         }}
       />
-      <NewProductButton
-        title="Cadastrar Pizza"
-        type="secondary"
-        onPress={handleNewProductCreation}
-      />
+      {user?.isAdmin && (
+        <NewProductButton
+          title="Cadastrar Pizza"
+          type="secondary"
+          onPress={handleNewProductCreation}
+        />
+      )}
     </Container>
   );
 }

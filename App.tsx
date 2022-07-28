@@ -9,6 +9,8 @@ import { ThemeProvider } from "styled-components";
 import { AuthProvider } from "./src/hooks/auth";
 import theme from "./src/theme";
 import { Routes } from "./src/routes";
+import { Order } from "./src/screens/Order";
+import { Orders } from "./src/screens/Orders";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
