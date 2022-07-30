@@ -3,14 +3,28 @@
     "name": "toppizza",
     "slug": "toppizza",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "plugins": [
+      "@react-native-firebase/app",
       [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.toppizza"
+    },
+    "ios": {
+      "googleServicesFile": "GoogleService-Info.plist",
+      "bundleIdentifier": "com.toppizza"
+    }
   }
 }
