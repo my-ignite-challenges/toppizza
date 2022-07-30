@@ -3,26 +3,47 @@ import {
   Container,
   Image,
   Name,
+  OrderStausType,
   StatusContainer,
   StatusLabel,
   TableDescription,
 } from "./styles";
 
-type Props = TouchableOpacityProps & {
-  index: number;
+export type OrderProps = {
+  id: string;
+  product: string;
+  image: string;
+  status: OrderStausType;
+  table_number: string;
+  quantity: string;
 };
 
-export function OrderCard({ index, ...rest }: Props) {
+type Props = TouchableOpacityProps & {
+  index: number;
+  data: OrderProps;
+};
+
+enum OrderStatus {
+  Delivered = "Entregue",
+  Ongoing = "Preparando",
+  Ready = "Pronto",
+}
+
+export function OrderCard({ index, data, ...rest }: Props) {
   return (
     <Container index={index} {...rest} accessibilityRole="button">
-      <Image source={{ uri: "https://github.com/georgewfsantos.png" }} />
+      <Image source={{ uri: data.image }} />
 
-      <Name>4 Queijos</Name>
+      <Name>{data.product}</Name>
 
-      <TableDescription>Mesa 5 ● Qnt: 1</TableDescription>
+      <TableDescription>
+        Mesa {data.table_number} ● Qnt: {data.quantity}
+      </TableDescription>
 
-      <StatusContainer status="Ongoing">
-        <StatusLabel status="Ongoing">Preparando</StatusLabel>
+      <StatusContainer status={data.status}>
+        <StatusLabel status={data.status}>
+          {OrderStatus[data.status]}
+        </StatusLabel>
       </StatusContainer>
     </Container>
   );

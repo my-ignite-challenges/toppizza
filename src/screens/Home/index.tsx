@@ -88,7 +88,7 @@ export function Home() {
       <Header>
         <GreetingWrapper>
           <GreetingEmoji source={happyEmoji} />
-          <Greeting>Olá, Admin</Greeting>
+          <Greeting>Olá, {user?.isAdmin ? "Admin" : "Garçom"}</Greeting>
         </GreetingWrapper>
 
         <TouchableOpacity onPress={signOut}>
